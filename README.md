@@ -1,58 +1,81 @@
-<!-- Description -->
+# HelloID-Conn-SA-Full-Exchange-On-Premises-Usermailbox-Change-Addresslist-Visibility
+
+| :information_source: Information                                                                                                                                                                                                                                                                                                                                                          |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| This repository contains the connector and configuration code only. The implementer is responsible for acquiring the connection details such as username, password, certificate, etc. You might even need to sign a contract or agreement with the supplier before implementing this connector. Please contact the client's application manager to coordinate the connector requirements. |
+
 ## Description
-This HelloID Service Automation Delegated Form provides the functionality to hide/unhide a mailbox from the global address lists. The following options are available:
- 1. Give a name to lookup a mailbox
- 2. The result will show you a list of mailboxes. You will need to select to correct one
- 3. Toggle to hide/unhide the mailbox from the addresslist
- 4. Hide/Unhide the mailbox from the addresslist
 
-## Versioning
-| Version | Description | Date |
-| - | - | - |
-| 1.0.2   | Added version number and updated code for SA-agent and auditlogging | 2022/08/22  |
-| 1.0.1   | Added version number and updated all-in-one script | 2021/11/16  |
-| 1.0.0   | Initial release | 2021/04/29  |
+_HelloID-Conn-SA-Full-Exchange-On-Premises-Usermailbox-Change-Addresslist-Visibility_ is a template designed for use with HelloID Service Automation (SA) Delegated Forms. It can be imported into HelloID and customized according to your requirements.
 
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-* [Description](#description)
-* [All-in-one PowerShell setup script](#all-in-one-powershell-setup-script)
-  * [Getting started](#getting-started)
-* [Post-setup configuration](#post-setup-configuration)
-* [Manual resources](#manual-resources)
+By using this delegated form, you can control whether user mailboxes are visible or hidden in the Exchange Global Address List. The following options are available:
 
+1.  Search for mailbox by entering search criteria (name, alias, or email address)
+2.  Select the target mailbox from the search results grid
+3.  View the current visibility state of the selected mailbox
+4.  Toggle the visibility setting to hide or unhide the mailbox from address lists
+5.  The mailbox visibility is updated in Exchange On-Premises
+6.  Audit logs are created for tracking and compliance purposes
 
-## All-in-one PowerShell setup script
-The PowerShell script "createform.ps1" contains a complete PowerShell script using the HelloID API to create the complete Form including user defined variables, tasks and data sources.
+## Getting started
 
- _Please note that this script asumes none of the required resources do exists within HelloID. The script does not contain versioning or source control_
+### Requirements
 
+- **Exchange On-Premises Server**: Access to an Exchange On-Premises environment with administrative permissions
+- **PowerShell Remoting**: PowerShell remoting must be enabled on the Exchange server
+- **Administrative Credentials**: An Exchange administrator account with sufficient permissions to modify mailbox properties
+- **Network Access**: The HelloID agent must have network connectivity to the Exchange server on the required ports (typically HTTP/HTTPS)
 
-### Getting started
-Please follow the documentation steps on [HelloID Docs](https://docs.helloid.com/hc/en-us/articles/360017556559-Service-automation-GitHub-resources) in order to setup and run the All-in one Powershell Script in your own environment.
+### Connection settings
 
- 
-## Post-setup configuration
-After the all-in-one PowerShell script has run and created all the required resources. The following items need to be configured according to your own environment
- 1. Update the following [user defined variables](https://docs.helloid.com/hc/en-us/articles/360014169933-How-to-Create-and-Manage-User-Defined-Variables)
-<table>
-  <tr><td><strong>Variable name</strong></td><td><strong>Example value</strong></td><td><strong>Description</strong></td></tr>
-  <tr><td>ExchangeConnectionUri</td><td>********</td><td>Exchange server URI</td></tr>
-  <tr><td>ExchangeAdminUsername</td><td>domain/user</td><td>Exchange server admin account</td></tr>
-  <tr><td>ExchangeAdminPassword</td><td>********</td><td>Exchange server admin password</td></tr>
-</table>
+The following user-defined variables are used by the connector.
 
-## Manual resources
-This Delegated Form uses the following resources in order to run
+| Setting               | Description                                                                               | Mandatory |
+| --------------------- | ----------------------------------------------------------------------------------------- | --------- |
+| ExchangeConnectionUri | The connection URI to the Exchange server (e.g., http://exchange.domain.local/PowerShell) | Yes       |
+| ExchangeAdminUsername | The username of the Exchange administrator account                                        | Yes       |
+| ExchangeAdminPassword | The password of the Exchange administrator account                                        | Yes       |
 
-### Powershell data source 'Exchange-get-identity-hide-unhide'
-This Powershell data source runs a query to search for the mailbox.
+## Remarks
 
-### Delegated form task 'Exchange on-premise - Hide-UnHide from addresslist'
-This delegated form task will hide/unhide the mailbox from the GAL.
+### Mailbox Identification Using ExchangeGuid
+
+The connector uses `ExchangeGuid` as the primary identifier when updating mailbox properties. This ensures accurate identification even when mailboxes are moved between databases or servers, as the GUID remains constant throughout the mailbox lifecycle.
+
+### Search Functionality
+
+The datasource supports wildcard searching across multiple mailbox attributes including DisplayName, Name, SamAccountName, Alias, and PrimarySmtpAddress. This provides flexible search options for administrators to quickly locate the target mailbox.
+
+### Current State Visibility
+
+The form displays the current visibility state of the selected mailbox through a dedicated datasource, allowing administrators to see the current configuration before making changes. This helps prevent accidental visibility changes.
+
+### Session Management
+
+The connector implements proper PowerShell session management with try-catch-finally blocks to ensure Exchange sessions are properly cleaned up even if errors occur during execution. This prevents session leaks and resource exhaustion on the Exchange server.
+
+## Development resources
+
+### PowerShell cmdlets
+
+The following PowerShell cmdlets are used by the connector:
+
+| Cmdlet      | Description                                 |
+| ----------- | ------------------------------------------- |
+| Get-Mailbox | Retrieves mailbox information from Exchange |
+| Set-Mailbox | Updates mailbox properties in Exchange      |
+
+### API documentation
+
+- [Connect to Exchange Servers using Remote PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/connect-to-exchange-servers-using-remote-powershell)
+- [Get-Mailbox](https://learn.microsoft.com/en-us/powershell/module/exchange/get-mailbox)
+- [Set-Mailbox](https://learn.microsoft.com/en-us/powershell/module/exchange/set-mailbox)
 
 ## Getting help
-_If you need help, feel free to ask questions on our [forum](https://forum.helloid.com/forum/helloid-connectors/service-automation/580-helloid-sa-exchange-on-premises-hide-unhide-mailbox-from-address-lists)_
 
-## HelloID Docs
+> :bulb: **Tip:**  
+> _For more information on Delegated Forms, please refer to our [documentation](https://docs.helloid.com/en/service-automation/delegated-forms.html) pages_.
+
+## HelloID docs
+
 The official HelloID documentation can be found at: https://docs.helloid.com/

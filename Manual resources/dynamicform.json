@@ -1,77 +1,97 @@
 [
-    {
-        "label":  "Details",
-        "fields":  [
-                       {
-                           "key":  "name",
-                           "templateOptions":  {
-                                                   "label":  "Name",
-                                                   "required":  true
-                                               },
-                           "type":  "input",
-                           "summaryVisibility":  "Show",
-                           "requiresTemplateOptions":  true,
-                           "requiresKey":  true,
-                           "requiresDataSource":  false
-                       },
-                       {
-                           "key":  "selectUser",
-                           "templateOptions":  {
-                                                   "label":  "Select user",
-                                                   "required":  false,
-                                                   "grid":  {
-                                                                "columns":  [
-                                                                                {
-                                                                                    "headerName":  "Name",
-                                                                                    "field":  "name"
-                                                                                },
-                                                                                {
-                                                                                    "headerName":  "S AM Account Name",
-                                                                                    "field":  "sAMAccountName"
-                                                                                },
-                                                                                {
-                                                                                    "headerName":  "Hidden from addresslists",
-                                                                                    "field":  "HiddenFromAddressLists"
-                                                                                }
-                                                                            ],
-                                                                "height":  300,
-                                                                "rowSelection":  "single"
-                                                            },
-                                                   "dataSourceConfig":  {
-                                                                            "dataSourceGuid":  "$dataSourceGuid_0",
-                                                                            "input":  {
-                                                                                          "propertyInputs":  [
-                                                                                                                 {
-                                                                                                                     "propertyName":  "name",
-                                                                                                                     "otherFieldValue":  {
-                                                                                                                                             "otherFieldKey":  "name"
-                                                                                                                                         }
-                                                                                                                 }
-                                                                                                             ]
-                                                                                      }
-                                                                        },
-                                                   "useFilter":  true,
-                                                   "useDefault":  false
-                                               },
-                           "type":  "grid",
-                           "summaryVisibility":  "Show",
-                           "requiresTemplateOptions":  true,
-                           "requiresKey":  true,
-                           "requiresDataSource":  true
-                       },
-                       {
-                           "key":  "hidefromGal",
-                           "templateOptions":  {
-                                                   "label":  "Hidden from address lists",
-                                                   "useSwitch":  true,
-                                                   "checkboxLabel":  "Toggle to hide mailbox from address lists"
-                                               },
-                           "type":  "boolean",
-                           "summaryVisibility":  "Show",
-                           "requiresTemplateOptions":  true,
-                           "requiresKey":  true,
-                           "requiresDataSource":  false
-                       }
-                   ]
-    }
+  {
+    "label": "Details",
+    "fields": [
+      {
+        "key": "searchMailbox",
+        "templateOptions": {
+          "label": "Search mailbox",
+          "required": true
+        },
+        "type": "input",
+        "summaryVisibility": "Show",
+        "requiresTemplateOptions": true,
+        "requiresKey": true,
+        "requiresDataSource": false
+      },
+      {
+        "key": "selectedmailbox",
+        "templateOptions": {
+          "label": "Select mailbox",
+          "required": true,
+          "grid": {
+            "columns": [
+              {
+                "headerName": "Display Name",
+                "field": "DisplayName"
+              },
+              {
+                "headerName": "Primary Smtp Address",
+                "field": "PrimarySmtpAddress"
+              },
+              {
+                "headerName": "User Principal Name",
+                "field": "UserPrincipalName"
+              },
+              {
+                "headerName": "Hidden From Address Lists Enabled",
+                "field": "HiddenFromAddressListsEnabled"
+              }
+            ],
+            "height": 300,
+            "rowSelection": "single"
+          },
+          "dataSourceConfig": {
+            "dataSourceGuid": "$dataSourceGuid_0",
+            "input": {
+              "propertyInputs": [
+                {
+                  "propertyName": "searchValue",
+                  "otherFieldValue": {
+                    "otherFieldKey": "searchMailbox"
+                  }
+                }
+              ]
+            }
+          },
+          "useFilter": true,
+          "useDefault": false,
+          "allowCsvDownload": true
+        },
+        "type": "grid",
+        "summaryVisibility": "Show",
+        "requiresTemplateOptions": true,
+        "requiresKey": true,
+        "requiresDataSource": true
+      },
+      {
+        "key": "hidden",
+        "templateOptions": {
+          "label": "Visibility in global addresslist",
+          "useSwitch": true,
+          "checkboxLabel": "Switch toggle to change visibility",
+          "useDataSource": true,
+          "dataSourceConfig": {
+            "dataSourceGuid": "$dataSourceGuid_1",
+            "input": {
+              "propertyInputs": [
+                {
+                  "propertyName": "selectedMailbox",
+                  "otherFieldValue": {
+                    "otherFieldKey": "selectedmailbox"
+                  }
+                }
+              ]
+            }
+          },
+          "displayField": "enabled"
+        },
+        "type": "boolean",
+        "summaryVisibility": "Show",
+        "requiresTemplateOptions": true,
+        "requiresKey": true,
+        "requiresDataSource": false
+      }
+    ]
+  }
 ]

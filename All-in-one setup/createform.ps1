@@ -476,7 +476,7 @@ finally {
 }
 '@ 
 $tmpModel = @'
-[{"key":"Guid","type":0},{"key":"DisplayName","type":0},{"key":"Name","type":0},{"key":"Alias","type":0},{"key":"PrimarySmtpAddress","type":0},{"key":"EmailAddresses","type":0},{"key":"UserPrincipalName","type":0},{"key":"RecipientTypeDetails","type":0},{"key":"HiddenFromAddressListsEnabled","type":0}]
+[{"key":"ExchangeGuid","type":0},{"key":"DisplayName","type":0},{"key":"Name","type":0},{"key":"Alias","type":0},{"key":"PrimarySmtpAddress","type":0},{"key":"EmailAddresses","type":0},{"key":"UserPrincipalName","type":0},{"key":"RecipientTypeDetails","type":0},{"key":"HiddenFromAddressListsEnabled","type":0}]
 '@ 
 $tmpInput = @'
 [{"description":null,"translateDescription":false,"inputFieldType":1,"key":"searchValue","type":0,"options":1}]
@@ -488,7 +488,7 @@ exchange-on-premises-usermailbox-change-addresslist-visibility | Exchange-On-Pre
 Invoke-HelloIDDatasource -DatasourceName $dataSourceGuid_0_Name -DatasourceType "4" -DatasourceInput $tmpInput -DatasourcePsScript $tmpPsScript -DatasourceModel $tmpModel -DataSourceRunInCloud "False" -returnObject ([Ref]$dataSourceGuid_0) 
 <# End: DataSource "exchange-on-premises-usermailbox-change-addresslist-visibility | Exchange-On-Premises-Get-User-Wildcard-Name-Alias" #>
 
-<# Begin: DataSource "exchange-on-premises-update-addresslist-visibility | Exchange-On-Premises-Get-Current-Visibility" #>
+<# Begin: DataSource "exchange-on-premises-usermailbox-change-addresslist-visibility | Exchange-On-Premises-Get-Current-Visibility" #>
 $tmpPsScript = @'
 $enabled = [bool]::Parse($datasource.selectedmailbox.HiddenFromAddressListsEnabled)
 
@@ -503,10 +503,10 @@ $tmpInput = @'
 '@ 
 $dataSourceGuid_1 = [PSCustomObject]@{} 
 $dataSourceGuid_1_Name = @'
-exchange-on-premises-update-addresslist-visibility | Exchange-On-Premises-Get-Current-Visibility
+exchange-on-premises-usermailbox-change-addresslist-visibility | Exchange-On-Premises-Get-Current-Visibility
 '@ 
 Invoke-HelloIDDatasource -DatasourceName $dataSourceGuid_1_Name -DatasourceType "4" -DatasourceInput $tmpInput -DatasourcePsScript $tmpPsScript -DatasourceModel $tmpModel -DataSourceRunInCloud "False" -returnObject ([Ref]$dataSourceGuid_1) 
-<# End: DataSource "exchange-on-premises-update-addresslist-visibility | Exchange-On-Premises-Get-Current-Visibility" #>
+<# End: DataSource "exchange-on-premises-usermailbox-change-addresslist-visibility | Exchange-On-Premises-Get-Current-Visibility" #>
 <# End: HelloID Data sources #>
 
 <# Begin: Dynamic Form "Exchange On-Premises - Usermailbox - Change addresslist visibility" #>

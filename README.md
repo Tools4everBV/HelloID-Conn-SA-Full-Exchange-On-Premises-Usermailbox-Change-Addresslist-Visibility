@@ -28,13 +28,15 @@ By using this delegated form, you can control whether user mailboxes are visible
 
 ### Connection settings
 
-The following user-defined variables are used by the connector.
+The following global variables are used by the connector.
 
-| Setting               | Description                                                                               | Mandatory |
-| --------------------- | ----------------------------------------------------------------------------------------- | --------- |
-| ExchangeConnectionUri | The connection URI to the Exchange server (e.g., http://exchange.domain.local/PowerShell) | Yes       |
-| ExchangeAdminUsername | The username of the Exchange administrator account                                        | Yes       |
-| ExchangeAdminPassword | The password of the Exchange administrator account                                        | Yes       |
+| Variable | Description | Example value | Mandatory | Secret |
+| -------- | ----------- | ------------- | --------- | ------ |
+| ExchangeConnectionUri | The connection URI to the Exchange server. | `http://exchange.domain.local/PowerShell` | Yes | No |
+| ExchangeAdminUsername | The username of the Exchange administrator account. | `example\\exchange-admin` | Yes | No |
+| ExchangeAdminPassword | The password of the Exchange administrator account. |  | Yes | Yes |
+
+Global variables must be configured in the HelloID Variable Library before using the delegated form. The example values above are placeholders and must be replaced with customer-specific values.
 
 ## Remarks
 
